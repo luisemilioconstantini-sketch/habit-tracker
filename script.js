@@ -9,9 +9,33 @@ addButton.addEventListener("click", function () {
     return;
   }
 
-  const listItem = document.createElement("li");
-  listItem.textContent = habitText;
-  habitList.appendChild(listItem);
-
+  addHabitToList(habitText);
   habitInput.value = "";
 });
+
+function addHabitToList(habitText) {
+  const listItem = document.createElement("li");
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+
+  const habitSpan = document.createElement("span");
+  habitSpan.textContent = habitText;
+
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Delete";
+
+  checkbox.addEventListener("change", function () {
+    habitSpan.classList.toggle("completed", checkbox.checked);
+  });
+
+  deleteButton.addEventListener("click", function () {
+    listItem.remove();
+  });
+
+  listItem.appendChild(checkbox);
+  listItem.appendChild(habitSpan);
+  listItem.appendChild(deleteButton);
+
+  habitList.appendChild(listItem);
+}
